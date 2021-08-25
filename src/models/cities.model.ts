@@ -9,10 +9,7 @@ export default function (app: Application): typeof Model {
   const cities = sequelizeClient.define(
     "cities",
     {
-      nombre: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
+      nombre: { type: DataTypes.STRING, allowNull: false },
     },
     {
       hooks: {

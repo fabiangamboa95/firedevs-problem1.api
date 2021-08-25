@@ -10,7 +10,11 @@ export default function (app: Application): typeof Model {
     "groups",
     {
       nombre: { type: DataTypes.STRING, allowNull: false },
-      guiaId: { type: DataTypes.INTEGER, allowNull: true },
+      guiaId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: { model: "professors" },
+      },
       profesores: { type: DataTypes.JSON, allowNull: true },
     },
     {
@@ -26,7 +30,9 @@ export default function (app: Application): typeof Model {
   (groups as any).associate = function (models: any): void {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    groups.hasOne(models.professors, { foreignKey: "id" });
+    groups.hasMany(models.students, {
+      foreignKey: { name: "groupId", allowNull: true },
+    });
   };
 
   return groups;
