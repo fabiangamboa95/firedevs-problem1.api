@@ -6,12 +6,11 @@ import { HookReturn } from "sequelize/types/lib/hooks";
 
 export default function (app: Application): typeof Model {
   const sequelizeClient: Sequelize = app.get("sequelizeClient");
-  const groups = sequelizeClient.define(
-    "groups",
+  const professors = sequelizeClient.define(
+    "professors",
     {
       nombre: { type: DataTypes.STRING, allowNull: false },
-      guiaId: { type: DataTypes.UUID, field: "professor_id", allowNull: true },
-      profesores: { type: DataTypes.JSON, allowNull: true },
+      email: { type: DataTypes.STRING, allowNull: true },
     },
     {
       hooks: {
@@ -23,11 +22,10 @@ export default function (app: Application): typeof Model {
   );
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  (groups as any).associate = function (models: any): void {
+  (professors as any).associate = function (models: any): void {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    groups.hasOne(models.professors, { as: "Profesor Guia", foreignKey: "id" });
   };
 
-  return groups;
+  return professors;
 }
