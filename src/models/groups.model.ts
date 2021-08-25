@@ -10,7 +10,7 @@ export default function (app: Application): typeof Model {
     "groups",
     {
       nombre: { type: DataTypes.STRING, allowNull: false },
-      guiaId: { type: DataTypes.UUID, field: "professor_id", allowNull: true },
+      guiaId: { type: DataTypes.INTEGER, allowNull: true },
       profesores: { type: DataTypes.JSON, allowNull: true },
     },
     {
@@ -26,7 +26,7 @@ export default function (app: Application): typeof Model {
   (groups as any).associate = function (models: any): void {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    groups.hasOne(models.professors, { as: "Profesor Guia", foreignKey: "id" });
+    groups.hasOne(models.professors, { foreignKey: "id" });
   };
 
   return groups;

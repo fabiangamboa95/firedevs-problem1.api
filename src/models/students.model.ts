@@ -14,7 +14,7 @@ export default function (app: Application): typeof Model {
       nombre: { type: DataTypes.STRING, allowNull: false },
       email: { type: DataTypes.STRING, allowNull: false },
       fechaNacimiento: { type: DataTypes.DATE, allowNull: false },
-      ciudadNacimiento: { type: DataTypes.STRING, allowNull: false },
+      ciudadNacimiento: { type: DataTypes.INTEGER, allowNull: false },
     },
     {
       hooks: {
@@ -29,6 +29,7 @@ export default function (app: Application): typeof Model {
   (students as any).associate = function (models: any): void {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+    students.hasOne(models.cities, { foreignKey: "id" });
   };
 
   return students;
